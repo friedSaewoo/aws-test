@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>인프라 연결 테스트</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+            background-color: #f4f4f4;
+        }
+        .status-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        .status {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+        .timestamp {
+            color: gray;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<h1>🔄 인프라 실시간 연결 상태</h1>
+
+<div class="status-box">
+    <div class="status"><strong>📦 RDS:</strong> <span id="rds-value">-</span></div>
+    <div class="status"><strong>⚡ Redis:</strong> <span id="redis-value">-</span></div>
+    <div class="timestamp">업데이트 시각: <span id="updated-time">-</span></div>
+</div>
+
+<script>
+    async function fetchStatus() {
+        try {
+            const res = await fetch('/test');
+            const data = await res.json();
+            document.getElementById('rds-value').textContent = data.rds;
+            document.getElementById('redis-value').textContent = data.redis;
+            document.getElementById('updated-time').textContent = new Date().toLocaleString();
+        } catch (e) {
+            document.getElementById('rds-value').textContent = '❌ 에러';
+            document.getElementById('redis-value').textContent = '❌ 에러';
+        }
+    }
+
+    // 최초 호출
+    fetchStatus();
+
+    // 5초마다 반복 호출
+    setInterval(fetchStatus, 5000);
+</script>
+</body>
+</html>
