@@ -1,4 +1,6 @@
 package com.example.aws_test.domain;
 
-public class TestRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TestRepository extends JpaRepository<Test, Long> {
 }
