@@ -14,6 +14,9 @@ jobs:
     steps:
     - name: Checkout 
       uses: actions/checkout@v4
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
       
     # Spring Boot app Build
     - name: Spring Boot build
