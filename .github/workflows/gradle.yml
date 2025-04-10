@@ -84,10 +84,10 @@ jobs:
         port: ${{ secrets.EC2_SSH_PORT }}
         timeout: 60s
         script: |
-          docker pull friedsaewoo/aws-test:latest
+          docker pull ${{secrets.DOCKERHUB_USERNAME}}/aws-test:latest
           sudo docker stop aws-test-ci || true
           sudo docker rm aws-test-ci || true
-          sudo docker run -d -p 8080:8080 --name aws-test-ci --env-file /home/ubuntu/.env friedsaewoo/aws-test:latest
+          sudo docker run -d -p 8080:8080 --name aws-test-ci --env-file /home/ubuntu/.env ${{secrets.DOCKERHUB_USERNAME}}/aws-test:latest
 
     # REMOVE Github IP FROM security group (9)
     - name: Remove IP FROM security group
