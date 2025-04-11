@@ -8,7 +8,19 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, health, info
+
+metrics:
+  export:
+    prometheus:
+      enabled: true
+
 ---
 spring:
   profiles:
-    active: prod
+    active: local

@@ -39,5 +39,3 @@ out/
 ### properties ###
 
 application-local.properties
-
-.env
